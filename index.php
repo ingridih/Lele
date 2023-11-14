@@ -126,8 +126,6 @@ function CalculaTotais() {
             });
 
             totalt[i].innerHTML = formatoBr_valorprod;
-
-           
         }
     }
 
