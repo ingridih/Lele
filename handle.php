@@ -2,7 +2,15 @@
 require "vendor/mpdf/mpdf/src/Mpdf.php";
 
 if ($_POST['action'] == 'gerar') {
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new \Mpdf\Mpdf([
+        'mode' => 'utf-8',
+        'format' => 'A4',
+        'orientation' => 'P',
+        'margin_top' => 0,
+        'margin_bottom' => 0,
+        'margin_left' => 0,
+        'margin_right' => 0,
+    ]);
     // Configurações para adicionar uma imagem de fundo
     // $mpdf->SetWatermarkImage('');
     // $mpdf->showWatermarkImage = true;
@@ -10,10 +18,13 @@ if ($_POST['action'] == 'gerar') {
 
     $backgroundImagePath = 'modelo.jpeg';
     $html ='<link href="css/mpdf.css" type="text/css" rel="stylesheet" media="mpdf" />
-    <body style="background-image: url(\'' . $backgroundImagePath . '\'); background-size: cover;">
-        
-        <p style="font-family: sans-serif;">Campinas, '.date('d/m/Y').'</p><br>
-        <p style="font-family: sans-serif;">A/C: Empresa: '.$_POST['empresa'].'</p><br>
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-image: url(\'' . $backgroundImagePath . '\'); background-size: cover; opacity: 0.2 !important;"></div>
+        <div class="corpinho font-san" style="z-index: 1; position: relative; margin-left:17%; margin-right: 17%">
+
+        <br><br><br><br><br><br><br><br><br><br>
+
+        <p style="">Campinas, '.date('d/m/Y').'</p><br>
+        <p style="">A/C: Empresa: '.$_POST['empresa'].'</p><br>
         <div style="text-align: center;">
             <h3>PROPOSTA COMERCIAL</h3>
         </div>
@@ -39,10 +50,11 @@ if ($_POST['action'] == 'gerar') {
             }
             $html .= '</tbody></table>';
 
-    $html .= '</body>';
+    $html .= '</div></div>';
 
     // Adicione conteúdo ao PDF
     $mpdf->CSSselectMedia = 'mpdf';
+    //$mpdf->SetHTMLHeader('<img src="' . $backgroundImagePath . '" width="100%" height="100%" style="position: fixed; top: 0; left: 0; opacity: 0.5;" />');
     $mpdf->WriteHTML($html);
 
     $file_name = 'orcamento-'.date('Y-m-d_His').'.pdf';
