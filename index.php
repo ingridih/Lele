@@ -69,15 +69,19 @@
                     <div class="form-group row">
                         <div class="col-md-3">
                             <label class="form-label">Cobrar Serviço</label>
-                            <select class="form-control mb-2 mb-md-0" id="servico">
+                            <select class="form-control mb-2 mb-md-0" id="servico" onchange="mostrarOcultarCampo()">
                                 <option>Selecione</option>
                                 <option value="sim">Sim</option>
                                 <option value="nao">Não</option>
                             </select>
                         </div>  
+                        <div class="col-md-3">
+                            <label class="form-label">Valor do Serviço</label>
+                            <input type="text" class="form-control mb-2 mb-md-0 valorservico" id="valorservico" name="valorservico" value="0" placeholder="Valor do Serviço" style="display:none"/>
+                        </div>  
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-3">
+                        <div class="col-md-3" style="margin-top: 40px;font-weight: 600">
                             <label class="form-label">Valor Total</label>
                             <input type="text" class="form-control mb-2 mb-md-0" id="totalfinal" name="totalfinal" value="0" disabled/>
                         </div>  
@@ -92,7 +96,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <label class="form-label">Se necessário insira uma observação para sair no orçamento.</label>
+                            <label class="form-label">Se necessário, insira uma observação para sair no orçamento.</label>
                             <textarea class="form-control mb-2 mb-md-0" id="observacao" maxlength="450"></textarea>
                         </div>
                     </div>  
@@ -124,9 +128,24 @@
 <script>
 
 
+var totalservicofinal = 0;
+function mostrarOcultarCampo() {
+    var selectElement = document.getElementById("servico");
+    var campoValor = document.getElementById("valorservico");
+
+    if (selectElement.value === "sim") {
+        campoValor.style.display = "block";
+    } else {
+        campoValor.style.display = "none";
+        $('#valorservico').val(0);
+        CalculaTotais();
+    }
+}
+
 $(document).ready(function() {
 
     $(".valor").maskMoney({thousands:'', decimal:','});
+    $(".valorservico").maskMoney({thousands:'', decimal:','});
 
     $('#kt_docs_repeater_basic').repeater({
         initEmpty: false,
@@ -151,18 +170,33 @@ $(document).on('keyup', '.valor', function() {
     CalculaTotais();
 });
 
+$(document).on('keyup', '.valorservico', function() {
+    CalculaTotais();
+});
+
 
 function CalculaTotais() {
     var ValorFinal = 0;
     var totalt = document.getElementsByClassName("totalt");
+    var totalservicoElement = document.getElementsByClassName("valorservico")[0];
+    
 
+    if (totalservicoElement) {
+        var totalservicoValue = totalservicoElement.value;
+        var totalservicoSemMascara = totalservicoValue.replace(",", ".");
+        totalservicofinal = parseFloat(totalservicoSemMascara);
+        if (isNaN(totalservicofinal)) {
+            totalservicofinal = 0;
+        }
+    }
+    console.log(totalservicofinal);
     for (var i = 0; i < totalt.length; i++) {
         var qtd = parseFloat(document.getElementsByClassName('quantidade')[i].value);
         var valor = parseFloat(document.getElementsByClassName('valor')[i].value.replace(",", "."));
 
         if (!isNaN(qtd) && !isNaN(valor)) {
             var valortotal = qtd * valor;
-            ValorFinal = ValorFinal + valortotal;
+            ValorFinal = ValorFinal + valortotal + totalservicofinal;
 
             const formatoBr_valorprod = valortotal.toLocaleString('pt-BR', {
                 style: 'currency',
