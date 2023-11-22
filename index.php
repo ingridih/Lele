@@ -29,6 +29,10 @@
                             <label for="exampleInputEmail1" class="form-label">Empresa</label>
                             <input type="text" class="form-control empresa" id="empresa" name="empresa" placeholder="Entre com a empresa que vai receber o orçamento." autocomplete="off">
                         </div>
+                        <div class="mb-3 col-md-2">
+                            <label for="exampleInputEmail1" class="form-label">Porcentagem</label>
+                            <input type="text" class="form-control porcent" id="porcent" name="porcent" value="1.36" placeholder="%" autocomplete="off">
+                        </div>
                     </div>
                 </div>
                 <div id="kt_docs_repeater_basic">
@@ -149,6 +153,7 @@ $(document).ready(function() {
 
     $(".valor").maskMoney({thousands:'', decimal:','});
     $(".valorservico").maskMoney({thousands:'', decimal:','});
+    $("#porcent").maskMoney({thousands:'', decimal:'.'});
 
     $('#kt_docs_repeater_basic').repeater({
         initEmpty: false,
@@ -180,6 +185,10 @@ $(document).on('keyup', '.valorservico', function() {
     CalculaTotais();
 });
 
+$(document).on('keyup', '.porcent', function() {
+    CalculaTotais();
+});
+
 var total_sem_formatacao;
 
 function CalculaTotais() {
@@ -187,6 +196,7 @@ function CalculaTotais() {
     var totalt = document.getElementsByClassName("totalt");
     var totalservicoElement = document.getElementsByClassName("valorservico")[0];
     total_sem_formatacao = 0;
+    var porcent = document.getElementsByClassName("porcent")[0].value;
 
     if (totalservicoElement) {
         var totalservicoValue = totalservicoElement.value;
@@ -201,7 +211,7 @@ function CalculaTotais() {
         var valor = parseFloat(document.getElementsByClassName('valor')[i].value.replace(",", "."));
 
         if (!isNaN(qtd) && !isNaN(valor)) {
-            var valortotal = qtd * (valor * 1.35);
+            var valortotal = qtd * (valor * porcent);
             ValorFinal = ValorFinal + valortotal;
             const formatoBr_valorprod = valortotal.toLocaleString('pt-BR', {
                 style: 'currency',
