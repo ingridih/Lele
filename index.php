@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="mb-3 col">
                             <label for="exampleInputEmail1" class="form-label">Empresa</label>
-                            <input type="text" class="form-control empresa" id="empresa" name="empresa" placeholder="Entre com a empresa que vai receber o orçamento.">
+                            <input type="text" class="form-control empresa" id="empresa" name="empresa" placeholder="Entre com a empresa que vai receber o orçamento." autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -39,11 +39,11 @@
                                 <div class="form-group row">
                                     <div class="col-md-6">
                                         <label class="form-label">Materiais/ Peças e equipamentos</label>
-                                        <input type="text" class="form-control mb-2 mb-md-0 item" name="item"   placeholder="Entre com o nome do item e detalhes" />
+                                        <input type="text" class="form-control mb-2 mb-md-0 item" name="item"   placeholder="Entre com o nome do item e detalhes" autocomplete="off"/>
                                     </div>  
                                     <div class="col-md-2">
                                         <label class="form-label">Quantidade</label>
-                                        <input type="number" class="form-control mb-2 mb-md-0 quantidade"  name="quantidade" placeholder="Entre com a quantidade" />
+                                        <input type="number" class="form-control mb-2 mb-md-0 quantidade"  name="quantidade" placeholder="Entre com a quantidade" autocomplete="off"/>
                                     </div>
                                     <div class="col-md-2">
                                         <label class="form-label">Valor</label>
@@ -86,11 +86,11 @@
                     <div class="form-group row">
                         <div class="col-md-3" >
                             <label class="form-label">Valor Total</label>
-                            <input type="text" class="form-control mb-2 mb-md-0" id="totalfinal" name="totalfinal" value="0" disabled/>
+                            <input type="text" class="form-control mb-2 mb-md-0 totalfinal" id="totalfinal" name="totalfinal" value="0" disabled/>
                         </div>  
                         <div class="col-md-3">
                             <label class="form-label">Forma de Pagamento</label>
-                            <select type="text" class="form-control mb-2 mb-md-0" id="pagamento" name="pagamento" value="0">
+                            <select type="text" class="form-control mb-2 mb-md-0 pagamento" id="pagamento" name="pagamento" value="0">
                                 <option value="">Selecione</option>
                                 <option value="1">A Vista</option>
                                 <option value="2">Parcelado em 2x</option>

@@ -51,17 +51,17 @@ if ($_POST['action'] == 'gerar') {
             $html .= '</tbody></table>';
             
             if($_POST['servico'] == 'sim'){
-                $html .= '<p>Valor do Serviço: R$ '.$_POST['valorservico'].'</p>';
+                $html .= '<p>Valor do Serviço: <style="font-weight: bold;">R$ '.$_POST['valorservico'].'</span></p>';
             }
-            $html .= '<p>Valor Total: R$ <span style="font: weight 700;">'.$_POST['totalfinal'].'</span></p>';
+            $html .= '<p>Valor Total: <style="font-weight: bold;">'.$_POST['totalfinal'].'</span></p>';
             if($_POST['pagamento'] == 1){
                 $pagemento = 'A Vista';
             }else if($_POST['pagamento'] == 2){
                 $pagamento = 'Parcelado em 2x';
             }
-            $html .= '<p>Pagamento:  <span style="font: weight 700;">'.$pagemento.'</span></p>';
+            $html .= '<p>Pagamento:  <span style="font-weight: bold;">'.$pagemento.'</span></p>';
             if($_POST['observacao'] != ''){
-                $html .= '<p>Observação: <span style="font: weight 500;">'.$_POST['observacao'].'</span></p>';
+                $html .= '<p>Observação: <span>'.$_POST['observacao'].'</span></p>';
             }
 
     $html .= '</div></div>';
