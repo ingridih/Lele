@@ -278,7 +278,7 @@ $(document).ready(function () {
             var item = [];
             var selectElements = document.querySelectorAll('input.item');
             for(var i = 0; i < selectElements.length; i++ ) {    
-                console.log(selectElements[i].value)
+                
                 item.push(selectElements[i].value+'|'+$('.quantidade')[i].value+'|'+$('.valor')[i].value);
             } 
             $.post({
