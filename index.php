@@ -180,12 +180,13 @@ $(document).on('keyup', '.valorservico', function() {
     CalculaTotais();
 });
 
+var total_sem_formatacao;
 
 function CalculaTotais() {
     var ValorFinal = 0;
     var totalt = document.getElementsByClassName("totalt");
     var totalservicoElement = document.getElementsByClassName("valorservico")[0];
-    var totalitens = 0;
+    total_sem_formatacao = 0;
 
     if (totalservicoElement) {
         var totalservicoValue = totalservicoElement.value;
@@ -206,12 +207,13 @@ function CalculaTotais() {
                 style: 'currency',
                 currency: 'BRL',
             });
-
+            total_sem_formatacao = 
             totalt[i].innerHTML = formatoBr_valorprod;
         }
     }
 
     ValorFinal = ValorFinal + totalservicofinal;
+    total_sem_formatacao = ValorFinal;
     const formatoBr_valortotal = ValorFinal.toLocaleString('pt-BR', {
         style: 'currency',
         currency: 'BRL',
@@ -288,6 +290,7 @@ $(document).ready(function () {
                     totalfinal: $('#totalfinal').val(),
                     observacao: $('#observacao').val(),
                     valorservico: $('#valorservico').val(),
+                    totalsemformatao: total_sem_formatacao
                 },
                     success: function (response) {
                         if (response) {

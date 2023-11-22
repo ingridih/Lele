@@ -59,12 +59,13 @@ if ($_POST['action'] == 'gerar') {
             // }else if($_POST['pagamento'] == 2){
             //     $pagamento = 'Parcelado em 2x';
             // }
-            if(number_format($_POST['totalfinal'], 0, ',', '.') < 500){
-                $html .= '<p>Pagamento:  <span style="font-weight: bold;">A Vista</span></p>';
-            }else if(number_format($_POST['totalfinal'], 0, ',', '.') >= 500){
+            
+            if($_POST['totalsemformatao'] < 500){
+                $html .= '<p>Pagamento:  <span style="font-weight: bold;">A Vista aqui</span></p>';
+            }else if($_POST['totalsemformatao'] >= 500){
                 $html .= '<p>Pagamento:  <span style="font-weight: bold;">A Vista</span></p>';
                 $html .= '<p>OU <span style="font-weight: bold;">2X no cartão</span></p>';
-                $pagemento = 'Parcelado em 2x';
+                
             }
            
             if($_POST['observacao'] != ''){
