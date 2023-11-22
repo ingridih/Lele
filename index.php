@@ -201,7 +201,7 @@ function CalculaTotais() {
         var valor = parseFloat(document.getElementsByClassName('valor')[i].value.replace(",", "."));
 
         if (!isNaN(qtd) && !isNaN(valor)) {
-            var valortotal = qtd * (valor * 1.0135);
+            var valortotal = qtd * (valor * 1.35);
             ValorFinal = ValorFinal + valortotal;
             const formatoBr_valorprod = valortotal.toLocaleString('pt-BR', {
                 style: 'currency',

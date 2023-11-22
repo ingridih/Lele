@@ -61,16 +61,21 @@ if ($_POST['action'] == 'gerar') {
             // }
             
             if($_POST['totalsemformatao'] < 500){
-                $html .= '<p>Pagamento:  <span style="font-weight: bold;">A Vista aqui</span></p>';
+                $html .= '<p>Formas de Pagamento: </p>';
+                $html .= '<ul><li style="font-weight: bold;">A Vista</li>';
+                $html .= '<li style="font-weight: bold;">Link de Pagamento (Taxa 2,46%)</li></ul>';
             }else if($_POST['totalsemformatao'] >= 500){
-                $html .= '<p>Pagamento:  <span style="font-weight: bold;">A Vista</span></p>';
-                $html .= '<p>OU <span style="font-weight: bold;">2X no cartão</span></p>';
+                $html .= '<p>Formas de Pagamento: </p>';
+                $html .= '<ul><li style="font-weight: bold;">A Vista</li>';
+                $html .= '<li style="font-weight: bold;">Link de Pagamento (Taxa 2,46%)</li>';
+                $html .= '<li style="font-weight: bold;">2X no cartão</li></ul>';
                 
             }
-           
+            
             if($_POST['observacao'] != ''){
                 $html .= '<p>Observação: <span>'.$_POST['observacao'].'</span></p>';
             }
+            $html .= '<br><br><p style="font-weight: bold;">Valido até dia '.date('d/m/Y', strtotime(date('d/m/Y') . ' + 2 days')).'</p>';
 
     $html .= '</div></div>';
 
