@@ -75,7 +75,7 @@ if ($_POST['action'] == 'gerar') {
             if($_POST['observacao'] != ''){
                 $html .= '<p>Observação: <span>'.$_POST['observacao'].'</span></p>';
             }
-            $html .= '<br><br><p style="font-weight: bold;">Valido até dia '.date('d/m/Y', strtotime(date('d/m/Y') . ' + 2 days')).'</p>';
+            $html .= '<br><br><p style="font-weight: bold;">Valido até dia '.date('d/m/Y', strtotime(date('Y-m-d') . ' + 2 days')).'</p>';
 
     $html .= '</div></div>';
 
