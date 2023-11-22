@@ -88,14 +88,14 @@
                             <label class="form-label">Valor Total</label>
                             <input type="text" class="form-control mb-2 mb-md-0 totalfinal" id="totalfinal" name="totalfinal" value="0" disabled/>
                         </div>  
-                        <div class="col-md-3">
+                        <!-- <div class="col-md-3">
                             <label class="form-label">Forma de Pagamento</label>
                             <select type="text" class="form-control mb-2 mb-md-0 pagamento" id="pagamento" name="pagamento" value="0">
                                 <option value="">Selecione</option>
                                 <option value="1">A Vista</option>
                                 <option value="2">Parcelado em 2x</option>
                             </select>
-                        </div>  
+                        </div>   -->
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
@@ -165,7 +165,7 @@ $(document).ready(function() {
             $(this).slideUp(deleteElement);
         }
     });
-    $('#pagamento option[value="2"]').prop('disabled', true);
+    //$('#pagamento option[value="2"]').prop('disabled', true);
 });
 
 $(document).on('click', '.btn-danger', function() {
@@ -219,14 +219,14 @@ function CalculaTotais() {
 
     $('#totalfinal').val(formatoBr_valortotal);
 
-    if (ValorFinal >= 500) {
-        // Habilitar a opção 2 no elemento select
-        $('#pagamento option[value="2"]').prop('disabled', false);
-    } else {
-        // Desabilitar a opção 2 se o valor final for menor ou igual a 300
-        $('#pagamento option[value="2"]').prop('disabled', true);
-        $('#pagamento').val('');
-    }
+    // if (ValorFinal >= 500) {
+    //     // Habilitar a opção 2 no elemento select
+    //     $('#pagamento option[value="2"]').prop('disabled', false);
+    // } else {
+    //     // Desabilitar a opção 2 se o valor final for menor ou igual a 300
+    //     $('#pagamento option[value="2"]').prop('disabled', true);
+    //     $('#pagamento').val('');
+    // }
 
 }
 $(document).ready(function () {
@@ -258,12 +258,7 @@ $(document).ready(function () {
             required: "Por favor, preencha este campo"
         }
     });
-    $(".pagamento").rules("add", {
-        required: true,
-        messages: {
-            required: "Por favor, preencha este campo"
-        }
-    });
+    
     $(".servico").rules("add", {
         required: true,
         messages: {
@@ -291,7 +286,6 @@ $(document).ready(function () {
                     empresa: $('#empresa').val(), 
                     servico: $('#servico').val(),
                     totalfinal: $('#totalfinal').val(),
-                    pagamento: $('#pagamento').val(),
                     observacao: $('#observacao').val(),
                     valorservico: $('#valorservico').val(),
                 },
