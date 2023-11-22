@@ -15,15 +15,15 @@ if ($_POST['action'] == 'gerar') {
     // $mpdf->SetWatermarkImage('');
     // $mpdf->showWatermarkImage = true;
     // $mpdf->watermarkImageAlpha = 0.2; // Ajuste a opacidade conforme necessário
-
+   
     $backgroundImagePath = 'modelo.jpeg';
     $html ='<link href="css/mpdf.css" type="text/css" rel="stylesheet" media="mpdf" />
-    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-image: url(\'' . $backgroundImagePath . '\'); background-size: cover; opacity: 0.2 !important;"></div>
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-image: url(\'' . $backgroundImagePath . '\'); background-size: cover; opacity: 0.5 !important;"></div>
         <div class="corpinho font-san" style="z-index: 1; position: relative; margin-left:17%; margin-right: 17%">
 
         <br><br><br><br><br><br><br><br><br><br>
 
-        <p style="">Campinas, '.date('d/m/Y').'</p><br>
+        <p style="">Campinas, '.date('d/m/Y').'</p>
         <p style="">A/C: Empresa: '.$_POST['empresa'].'</p><br>
         <div style="text-align: center;">
             <h3>PROPOSTA COMERCIAL</h3>
@@ -49,6 +49,20 @@ if ($_POST['action'] == 'gerar') {
                 </tr>';
             }
             $html .= '</tbody></table>';
+            
+            if($_POST['servico'] == 'sim'){
+                $html .= '<p>Valor do Serviço: R$ '.$_POST['valorservico'].'</p>';
+            }
+            $html .= '<p>Valor Total: R$ <span style="font: weight 700;">'.$_POST['totalfinal'].'</span></p>';
+            if($_POST['pagamento'] == 1){
+                $pagemento = 'A Vista';
+            }else if($_POST['pagamento'] == 2){
+                $pagamento = 'Parcelado em 2x';
+            }
+            $html .= '<p>Pagamento:  <span style="font: weight 700;">'.$pagemento.'</span></p>';
+            if($_POST['observacao'] != ''){
+                $html .= '<p>Observação: <span style="font: weight 500;">'.$_POST['observacao'].'</span></p>';
+            }
 
     $html .= '</div></div>';
 
@@ -67,4 +81,16 @@ if ($_POST['action'] == 'gerar') {
     $return = $file_name;
     echo $return;
 
+}
+
+
+if ($_POST['action'] == 'apagar') {
+    $nomeArquivo = 'file/'.$_POST['arquivo'];
+
+    if (file_exists($nomeArquivo)) {
+        if (unlink($nomeArquivo)) {
+        } else {
+        }
+    } else {
+    }
 }

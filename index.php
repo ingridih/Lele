@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 
+
+
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -36,17 +39,17 @@
                                 <div class="form-group row">
                                     <div class="col-md-6">
                                         <label class="form-label">Materiais/ Peças e equipamentos</label>
-                                        <input type="text" class="form-control mb-2 mb-md-0 item" id="item" name="item"   placeholder="Entre com o nome do item e detalhes" />
+                                        <input type="text" class="form-control mb-2 mb-md-0 item" name="item"   placeholder="Entre com o nome do item e detalhes" />
                                     </div>  
                                     <div class="col-md-2">
                                         <label class="form-label">Quantidade</label>
-                                        <input type="number" class="form-control mb-2 mb-md-0 quantidade" id="quantidade" name="quantidade" placeholder="Entre com a quantidade" />
+                                        <input type="number" class="form-control mb-2 mb-md-0 quantidade"  name="quantidade" placeholder="Entre com a quantidade" />
                                     </div>
                                     <div class="col-md-2">
                                         <label class="form-label">Valor</label>
-                                        <input type="text" class="form-control mb-2 mb-md-0 valor" id="valor" name="valor" placeholder="Entre com o valor" />
+                                        <input type="text" class="form-control mb-2 mb-md-0 valor"  name="valor" placeholder="Entre com o valor" />
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-1" style="margin-top: 40px;font-weight: 600">
                                         <span class="totalt"></span>
                                     </div>
                                     <div class="col-md-1" style="margin-top: 20px;">
@@ -81,7 +84,7 @@
                         </div>  
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-3" style="margin-top: 40px;font-weight: 600">
+                        <div class="col-md-3" >
                             <label class="form-label">Valor Total</label>
                             <input type="text" class="form-control mb-2 mb-md-0" id="totalfinal" name="totalfinal" value="0" disabled/>
                         </div>  
@@ -266,15 +269,17 @@ $(document).ready(function () {
         }
     });
 
-    $("#form").submit(function () {
+    $("#form").submit(function (event) {
+        event.preventDefault();
         // Verificar se o formulário é válido
         if ($(this).valid()) {
             // O formulário é válido, você pode prosseguir com a ação desejada
             console.log("O formulário é válido. Enviando dados...");
             var item = [];
-            var selectElements = document.querySelectorAll('item');
+            var selectElements = document.querySelectorAll('input.item');
             for(var i = 0; i < selectElements.length; i++ ) {    
-                item.push(selectElements[i].value+'|'+$('.qtd')[i].value+'|'+$('.quantidade')[i].value+'|'+selectedText+'|'+$('.valor')[i].value);
+                console.log(selectElements[i].value)
+                item.push(selectElements[i].value+'|'+$('.quantidade')[i].value+'|'+$('.valor')[i].value);
             } 
             $.post({
                 url: "handle.php", // the resource where youre request will go throw
@@ -286,9 +291,24 @@ $(document).ready(function () {
                     totalfinal: $('#totalfinal').val(),
                     pagamento: $('#pagamento').val(),
                     observacao: $('#observacao').val(),
+                    valorservico: $('#valorservico').val(),
                 },
                     success: function (response) {
-        
+                        if (response) {
+                            var link = document.createElement('a');
+                            link.href = 'file/'+response;
+                            link.download = response;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            setTimeout(function(){
+                                $.post({
+                                    url: "handle.php", // the resource where youre request will go throw
+                                    type: "POST", // HTTP verb
+                                    data: {action: 'apagar', arquivo: response}
+                                });
+                            }, 2000);
+                        }
                     }
                 });
 
@@ -296,8 +316,6 @@ $(document).ready(function () {
             // O formulário não é válido, você pode realizar ações adicionais se necessário
             console.log("O formulário não é válido. Corrija os campos destacados.");
         }
-        // Retornar false para evitar que o formulário seja enviado automaticamente
-        return false;
     });
 });
 
