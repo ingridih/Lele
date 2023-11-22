@@ -165,8 +165,11 @@ $(document).ready(function() {
             $(this).slideUp(deleteElement);
         }
     });
-
     $('#pagamento option[value="2"]').prop('disabled', true);
+});
+
+$(document).on('click', '.btn-danger', function() {
+    CalculaTotais();
 });
 
 $(document).on('keyup', '.valor', function() {
@@ -182,7 +185,7 @@ function CalculaTotais() {
     var ValorFinal = 0;
     var totalt = document.getElementsByClassName("totalt");
     var totalservicoElement = document.getElementsByClassName("valorservico")[0];
-    
+    var totalitens = 0;
 
     if (totalservicoElement) {
         var totalservicoValue = totalservicoElement.value;
@@ -192,32 +195,31 @@ function CalculaTotais() {
             totalservicofinal = 0;
         }
     }
-    console.log(totalservicofinal);
     for (var i = 0; i < totalt.length; i++) {
         var qtd = parseFloat(document.getElementsByClassName('quantidade')[i].value);
         var valor = parseFloat(document.getElementsByClassName('valor')[i].value.replace(",", "."));
 
         if (!isNaN(qtd) && !isNaN(valor)) {
-            var valortotal = qtd * valor;
-            ValorFinal = ValorFinal + valortotal + totalservicofinal;
-
+            var valortotal = qtd * (valor * 1.0135);
+            ValorFinal = ValorFinal + valortotal;
             const formatoBr_valorprod = valortotal.toLocaleString('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
             });
 
             totalt[i].innerHTML = formatoBr_valorprod;
-
-            const formatoBr_valortotal = ValorFinal.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-            });
-
-            $('#totalfinal').val(formatoBr_valortotal);
         }
     }
 
-    if (ValorFinal >= 300) {
+    ValorFinal = ValorFinal + totalservicofinal;
+    const formatoBr_valortotal = ValorFinal.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+    });
+
+    $('#totalfinal').val(formatoBr_valortotal);
+
+    if (ValorFinal >= 500) {
         // Habilitar a opção 2 no elemento select
         $('#pagamento option[value="2"]').prop('disabled', false);
     } else {

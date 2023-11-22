@@ -54,12 +54,19 @@ if ($_POST['action'] == 'gerar') {
                 $html .= '<p>Valor do Serviço: <span style="font-weight: bold;">R$ '.$_POST['valorservico'].'</span></p>';
             }
             $html .= '<p>Valor Total: <span style="font-weight: bold;">'.$_POST['totalfinal'].'</span></p>';
-            if($_POST['pagamento'] == 1){
-                $pagemento = 'A Vista';
-            }else if($_POST['pagamento'] == 2){
-                $pagamento = 'Parcelado em 2x';
+            // if($_POST['pagamento'] == 1){
+            //     $pagemento = 'A Vista';
+            // }else if($_POST['pagamento'] == 2){
+            //     $pagamento = 'Parcelado em 2x';
+            // }
+            if(number_format($_POST['totalfinal'], 0, ',', '.') < 500){
+                $html .= '<p>Pagamento:  <span style="font-weight: bold;">A Vista</span></p>';
+            }else if(number_format($_POST['totalfinal'], 0, ',', '.') >= 500){
+                $html .= '<p>Pagamento:  <span style="font-weight: bold;">A Vista</span></p>';
+                $html .= '<p>OU <span style="font-weight: bold;">2X no cartão</span></p>';
+                $pagemento = 'Parcelado em 2x';
             }
-            $html .= '<p>Pagamento:  <span style="font-weight: bold;">'.$pagemento.'</span></p>';
+           
             if($_POST['observacao'] != ''){
                 $html .= '<p>Observação: <span>'.$_POST['observacao'].'</span></p>';
             }
