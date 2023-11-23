@@ -43,7 +43,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-6">
                                         <label class="form-label">Materiais/ Peças e equipamentos</label>
-                                        <input type="text" class="form-control mb-2 mb-md-0 item" name="item"   placeholder="Entre com o nome do item e detalhes" autocomplete="off"/>
+                                        <input type="text" class="form-control mb-2 mb-md-0 item" name="item" placeholder="Entre com o nome do item e detalhes" autocomplete="off"/>
                                     </div>  
                                     <div class="col-md-2">
                                         <label class="form-label">Quantidade</label>
@@ -286,7 +286,6 @@ $(document).ready(function () {
             console.log("O formulário é válido. Enviando dados...");
             var item = [];
             var selectElements = document.querySelectorAll('input.item');
-            var selectElements = document.querySelectorAll('span.totalt');
             for(var i = 0; i < selectElements.length; i++ ) {    
                 
                 item.push(selectElements[i].value+'|'+$('.quantidade')[i].value+'|'+$('.totalt')[i].innerHTML);
