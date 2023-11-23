@@ -286,9 +286,10 @@ $(document).ready(function () {
             console.log("O formulário é válido. Enviando dados...");
             var item = [];
             var selectElements = document.querySelectorAll('input.item');
+            var selectElements = document.querySelectorAll('span.totalt');
             for(var i = 0; i < selectElements.length; i++ ) {    
                 
-                item.push(selectElements[i].value+'|'+$('.quantidade')[i].value+'|'+$('.valor')[i].value);
+                item.push(selectElements[i].value+'|'+$('.quantidade')[i].value+'|'+$('.totalt')[i].innerHTML);
             } 
             $.post({
                 url: "handle.php", // the resource where youre request will go throw
@@ -300,6 +301,7 @@ $(document).ready(function () {
                     totalfinal: $('#totalfinal').val(),
                     observacao: $('#observacao').val(),
                     valorservico: $('#valorservico').val(),
+                    porcentagem: $('#porcent').val(),
                     totalsemformatao: total_sem_formatacao
                 },
                     success: function (response) {

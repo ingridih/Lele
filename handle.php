@@ -15,7 +15,8 @@ if ($_POST['action'] == 'gerar') {
     // $mpdf->SetWatermarkImage('');
     // $mpdf->showWatermarkImage = true;
     // $mpdf->watermarkImageAlpha = 0.2; // Ajuste a opacidade conforme necessário
-   
+    $porcentagem = $_POST['porcentagem'];
+
     $backgroundImagePath = 'modelo.jpeg';
     $html ='<link href="css/mpdf.css" type="text/css" rel="stylesheet" media="mpdf" />
     <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-image: url(\'' . $backgroundImagePath . '\'); background-size: cover; opacity: 0.5 !important;"></div>
@@ -42,6 +43,7 @@ if ($_POST['action'] == 'gerar') {
             <tbody style="width: 100%">';
             foreach($_POST['item'] as $item){
                 $i = explode('|', $item);
+
                 $html .= '<tr>
                     <td><p class="">'.$i[0].'</p></td>
                     <td><p class="">'.$i[1].'</p></td>
