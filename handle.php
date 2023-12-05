@@ -65,11 +65,11 @@ if ($_POST['action'] == 'gerar') {
             if($_POST['totalsemformatao'] < 500){
                 $html .= '<p>Formas de Pagamento: </p>';
                 $html .= '<ul><li style="font-weight: bold;">A Vista</li>';
-                $html .= '<li style="font-weight: bold;">Link de Pagamento (Taxa 2,46%)</li></ul>';
+                $html .= '<li style="font-weight: bold;">Link de Pagamento (Taxa 2,49%)</li></ul>';
             }else if($_POST['totalsemformatao'] >= 500){
                 $html .= '<p>Formas de Pagamento: </p>';
                 $html .= '<ul><li style="font-weight: bold;">A Vista</li>';
-                $html .= '<li style="font-weight: bold;">Link de Pagamento (Taxa 2,46%)</li>';
+                $html .= '<li style="font-weight: bold;">Link de Pagamento (Taxa 2,49%)</li>';
                 $html .= '<li style="font-weight: bold;">2X no cartão</li></ul>';
                 
             }
